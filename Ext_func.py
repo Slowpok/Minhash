@@ -64,7 +64,7 @@ def search_similarity(element_id, connenction=None, cursor=None):
         if res[0] == element_id:
             continue
         result.append((res[0], Minhash.jaccard_distance(element_hash, res[1])))
-    print()
+
     return result
 
 
