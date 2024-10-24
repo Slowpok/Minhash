@@ -1,4 +1,6 @@
 from random import shuffle
+import torch
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def shingling(text: str, k: int):
@@ -24,8 +26,10 @@ def shingling_list(list_of_text: list, k: int):
 
     return all_shingle_list, shingle_list
 
+
 def onehot(vocab: list, shingle_text: list):
     return [1 if x in shingle_text else 0 for x in vocab]
+
 
 def list_of_onehot_from_list_of_shingles(list_of_shingles, vocab):
     list_of_one_hot = []
@@ -33,7 +37,6 @@ def list_of_onehot_from_list_of_shingles(list_of_shingles, vocab):
         list_of_one_hot.append([1 if x in value else 0 for x in vocab])
 
     return list_of_one_hot
-
 
 
 def create_hash_queue(num: int, count_shuffle: int):
@@ -60,13 +63,34 @@ def create_hash(vector: list, hash_func: list):
                 break
     return signature
 
+def create_hash_gpu(vector, hash_func):
+    signature_cuda = torch.Tensor().to(device)
+
+    for func in hash_func:
+        for i in range(1, len(func) + 1):
+            idx = (func == i).nonzero(as_tuple=True)[0].item()
+            signature_val = vector[idx].item()
+            if signature_val == 1:
+                signature_cuda = torch.add(signature_cuda, torch.tensor(idx))
+                break
+    return signature_cuda
+
 
 def list_of_hashes(list_of_onehot, hash_func):
-    list_of_sign = []
-    for item in list_of_onehot:
-        list_of_sign.append(create_hash(item, hash_func))
+    hash_func_cuda = torch.Tensor(hash_func).to(device)
+    list_of_onehot_cuda = torch.Tensor(list_of_onehot).to(device)
 
-    return list_of_sign
+    list_of_sign_cuda = torch.Tensor().to(device)
+    for item in list_of_onehot_cuda:
+        # list_of_sign_cuda = list_of_sign_cuda.add(list_of_sign_cuda, create_hash_gpu(item, hash_func))
+        list_of_sign_cuda = torch.add(list_of_sign_cuda, create_hash_gpu(item, hash_func_cuda))
+    return list_of_sign_cuda
+
+    # list_of_sign = []
+    # for item in list_of_onehot:
+    #     list_of_sign.append(create_hash(item, hash_func))
+    #
+    # return list_of_sign
 
 
 

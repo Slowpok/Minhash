@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a0685b5-ad24-41d0-8310-b771c5ab3723" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Minhash.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="4a0685b5-ad24-41d0-8310-b771c5ab3723" name="Changes" comment="我已经不知道我应该怎么写这里">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ext_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/Ext_func.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Minhash.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/Minhash.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/String_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/String_methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dao.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/dao.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/env.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/env.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/initialisation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/initialisation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minhash_data3.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/minhash_data3.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_db_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/test_db_func.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_minhash.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/test_minhash.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +28,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Slowpok"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Slowpok/Minhash.git",
+    "accountId": "16971271-9dfb-4ed6-ab53-63f42c0ee0ee"
+  }
+}]]></component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 6
 }]]></component>
@@ -28,12 +51,40 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Python.test_db_func.executor": "Run",
+    "Python.test_db_func (1).executor": "Run",
+    "Python.test_db_func.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\79118\PycharmProjects\Minhash\Minhash" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.test_db_func (1)">
+    <configuration name="test_db_func (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Minhash" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Minhash" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Minhash/test_db_func.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="test_db_func" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Minhash" />
       <option name="ENV_FILES" value="" />
@@ -47,7 +98,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_db_func.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\79118\PycharmProjects\Minhash\Minhash\test_db_func.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -58,6 +109,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test_db_func (1)" />
         <item itemvalue="Python.test_db_func" />
       </list>
     </recent_temporary>
@@ -78,6 +130,36 @@
       <option name="presentableId" value="Default" />
       <updated>1729521805979</updated>
     </task>
+    <task id="LOCAL-00001" summary="вроде даже что-то работает">
+      <option name="closed" value="true" />
+      <created>1729522377571</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1729522377571</updated>
+    </task>
+    <task id="LOCAL-00002" summary="вроде даже что-то работает">
+      <option name="closed" value="true" />
+      <created>1729522409947</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1729522409947</updated>
+    </task>
+    <task id="LOCAL-00003" summary="我已经不知道我应该怎么写这里">
+      <option name="closed" value="true" />
+      <created>1729542016016</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1729542016016</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="вроде даже что-то работает" />
+    <MESSAGE value="我已经不知道我应该怎么写这里" />
+    <option name="LAST_COMMIT_MESSAGE" value="我已经不知道我应该怎么写这里" />
   </component>
 </project>
