@@ -4,21 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a0685b5-ad24-41d0-8310-b771c5ab3723" name="Changes" comment="我已经不知道我应该怎么写这里">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="4a0685b5-ad24-41d0-8310-b771c5ab3723" name="Changes" comment="d">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ext_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/Ext_func.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Minhash.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/Minhash.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/String_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/String_methods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dao.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/dao.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/initialisation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/initialisation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minhash_data3.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/minhash_data3.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_db_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/test_db_func.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_minhash.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/test_minhash.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Minhash/Ext_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/Ext_func.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Minhash/Minhash.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/Minhash.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Minhash/test_db_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/test_db_func.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,12 +144,32 @@
       <option name="project" value="LOCAL" />
       <updated>1729542016016</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="d">
+      <option name="closed" value="true" />
+      <created>1729782970541</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1729782970541</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="вроде даже что-то работает" />
     <MESSAGE value="我已经不知道我应该怎么写这里" />
-    <option name="LAST_COMMIT_MESSAGE" value="我已经不知道我应该怎么写这里" />
+    <MESSAGE value="d" />
+    <option name="LAST_COMMIT_MESSAGE" value="d" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Minhash/Ext_func.py</url>
+          <line>85</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
