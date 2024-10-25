@@ -13,8 +13,8 @@ def processing_file(filename):
     list_in_ordnund = []
     id_list = []
     for index, next_str in df.iterrows():
-        if yyy == 3000:
-            break
+        # if yyy == 3000:
+        #     break
         ind = next_str.element_id
         id_list.append(ind)
         list_in_ordnund.append(String_methods.string_in_ordnung(next_str.request))
