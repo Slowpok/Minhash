@@ -21,9 +21,7 @@ def processing_file(filename):
         yyy += 1
 
     list_of_hash, split_list_hashes, buckets = Minhash.hashing_and_bucking(list_in_ordnund, id_list)
-    list_of_hash_gpu, split_list_hashes_gpu, buckets_gpu = Minhash.hashing_and_bucking_gpu(list_in_ordnund, id_list)
-    list_of_hash_gpu = list_of_hash_gpu.tolist()
-    split_list_hashes_gpu = split_list_hashes_gpu.tolist()
+
 
     str_list_of_hash = []
     String_methods.list_to_string(list_of_hash, str_list_of_hash)
