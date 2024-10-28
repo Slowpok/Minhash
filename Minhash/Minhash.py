@@ -1,6 +1,7 @@
 from random import shuffle
 import torch
 import env
+import dao
 import pickle
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -147,6 +148,7 @@ def strings_comparison(string1: str, string2: str):
 
 
 def collect_all_buckets(splt_hash, id_list):
+
     bucket_list = []
     for i in range(len(splt_hash)):
         bucket_list.append(catch_coincidences_element_id(splt_hash, id_list, i))
@@ -169,33 +171,52 @@ def mass_string_comparison(list_of_strings: list):
     return ranging_coincidences(list_of_hash, idxs)
 
 
-def hashing_and_bucking(list_of_strings, id_list, update=False):
+def get_past_data(cursor):
+    past_data = dao.select_all_entry(cursor)
+    all_id = [y[0] for y in past_data]
+    all_hash = [y[1] for y in past_data]
+    all_split_hash = [y[2] for y in past_data]
+    return all_id, all_hash, all_split_hash
+
+
+def hashing_and_bucking(list_of_strings, id_list, update=False, cursor=None):
     all_shingles, list_of_shingles = shingling_list(list_of_strings, 2)
     if not update:
         vocab = list(set(all_shingles))
+        hash_func = create_hash_queue(len(vocab))
         with open("vocab", "wb") as file:
             pickle.dump(vocab, file)
     else:
         with open("vocab", "rb") as file:
             vocab = pickle.load(file)
+        with open("hash_queue", "rb") as file:
+            hash_func = pickle.load(file)
 
     list_of_onehot = list_of_onehot_from_list_of_shingles(list_of_shingles, vocab)
     print("list_of_onehot done")
 
-    if not update:
-        hash_func = create_hash_queue(len(vocab))
-    else:
-        with open("hash_queue", "rb") as file:
-            hash_func = pickle.load(file)
+    # if not update:
+    #     hash_func = create_hash_queue(len(vocab))
+    # else:
+    #     with open("hash_queue", "rb") as file:
+    #         hash_func = pickle.load(file)
 
     print("create_hash_queue done")
     list_of_hash = list_of_hashes(list_of_onehot, hash_func)
     print("list_of_hashes done")
     split_list_hashes = split_list_of_vectors(list_of_hash)
     print("split_list_of_vectors done")
+    if update:
+        past_id_list, past_list_hashes, past_split_list_hashes = get_past_data(cursor)
+        split_list_hashes.extend(past_split_list_hashes)
+        id_list.extend(past_id_list)
+        list_of_hash.extend(past_list_hashes)
+
     buckets = collect_all_buckets(split_list_hashes, id_list)
+
     print("buckets done")
-    return list_of_hash, split_list_hashes, buckets
+
+    return id_list, list_of_hash, split_list_hashes, buckets
 
 
 

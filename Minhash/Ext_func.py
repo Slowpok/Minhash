@@ -6,7 +6,7 @@ import initialisation
 import dao
 
 
-def processing_file(filename, update=False):
+def processing_file(filename, update=False, connection=None, cursor=None):
     df = pd.read_csv(filepath_or_buffer=filename,
                      names=['element_id', 'request'], encoding='Windows-1251', delimiter=';')
     yyy = 0
@@ -20,7 +20,10 @@ def processing_file(filename, update=False):
         list_in_ordnund.append(String_methods.string_in_ordnung(next_str.request))
         yyy += 1
 
-    list_of_hash, split_list_hashes, buckets = Minhash.hashing_and_bucking(list_in_ordnund, id_list, update)
+    if update:
+        dao.delete_updating_note(connection, cursor, [(y,) for y in id_list])
+
+    list_of_id, list_of_hash, split_list_hashes, buckets = Minhash.hashing_and_bucking(list_in_ordnund, id_list, update, cursor)
 
     str_list_of_hash = []
     String_methods.list_to_string(list_of_hash, str_list_of_hash)
@@ -28,12 +31,9 @@ def processing_file(filename, update=False):
     String_methods.list_to_string(split_list_hashes, str_split_list_hashes)
     str_buckets = []
     String_methods.list_to_string(buckets, str_buckets)
-    res = [(id_list[i], str_list_of_hash[i], str_split_list_hashes[i], str_buckets[i]) for i in range(len(id_list))]
-    if update:
-        list_of_tuple_id = [(id_item, ) for id_item in id_list]
-        return list_of_tuple_id, res
-    else:
-        return res
+    res = [(list_of_id[i], str_list_of_hash[i], str_split_list_hashes[i], str_buckets[i]) for i in range(len(list_of_id))]
+
+    return res
 
 
 def download_to_db_file(create=False):
@@ -85,8 +85,8 @@ def update_base():
     connection = conn['connection']
     cursor = conn['cursor']
 
-    list_of_id, data = processing_file(env.filename_update, True)
-    dao.delete_updating_note(connection, cursor, list_of_id)
+    data = processing_file(env.filename_update, True, connection, cursor)
+    # dao.clear_minhash_table(connection, cursor)
     dao.mass_insert_to_db(connection, cursor, data)
 
 

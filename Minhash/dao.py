@@ -17,7 +17,7 @@ def execute_insert_query(connection, data):
 
 def mass_insert_to_db(connection, cursor, data):
     try:
-
+        clear_minhash_table(connection, cursor)
         args_str = ','.join(cursor.mogrify("(%s, %s, %s, %s)", x).decode('utf-8') for x in data)
 
         cursor.execute("INSERT INTO minhashtable (element_id, all_hash, hash_buckets, buckets) VALUES " + args_str)
@@ -25,6 +25,18 @@ def mass_insert_to_db(connection, cursor, data):
 
     except psycopg2.OperationalError as e:
         print(f"The error '{e}' occurred")
+
+
+def select_all_entry(cursor):
+    query = "SELECT * FROM minhashtable"
+
+    try:
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result
+    except psycopg2.OperationalError as e:
+        print(f"The error '{e}' occurred")
+        return None
 
 
 def execute_read_query(cursor, element_id):

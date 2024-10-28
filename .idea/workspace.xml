@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a0685b5-ad24-41d0-8310-b771c5ab3723" name="Changes" comment="чето добавилос, чето удалилось">
+    <list default="true" id="4a0685b5-ad24-41d0-8310-b771c5ab3723" name="Changes" comment="если б мы знали что это такое">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Minhash/Ext_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/Ext_func.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Minhash/Minhash.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/Minhash.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Minhash/dao.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/dao.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Minhash/env.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/env.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Minhash/test_db_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/test_db_func.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -178,28 +177,43 @@
       <option name="project" value="LOCAL" />
       <updated>1729854867176</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="если б мы знали что это такое">
+      <option name="closed" value="true" />
+      <created>1730112200244</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1730112200245</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="вроде даже что-то работает" />
     <MESSAGE value="我已经不知道我应该怎么写这里" />
     <MESSAGE value="d" />
     <MESSAGE value="чето добавилос, чето удалилось" />
-    <option name="LAST_COMMIT_MESSAGE" value="чето добавилос, чето удалилось" />
+    <MESSAGE value="если б мы знали что это такое" />
+    <option name="LAST_COMMIT_MESSAGE" value="если б мы знали что это такое" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Minhash/Ext_func.py</url>
-          <line>89</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Minhash/test_db_func.py</url>
-          <line>5</line>
-          <option name="timeStamp" value="44" />
+          <line>76</line>
+          <option name="timeStamp" value="49" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
