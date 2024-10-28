@@ -6,22 +6,21 @@ import initialisation
 import dao
 
 
-def processing_file(filename):
+def processing_file(filename, update=False):
     df = pd.read_csv(filepath_or_buffer=filename,
                      names=['element_id', 'request'], encoding='Windows-1251', delimiter=';')
     yyy = 0
     list_in_ordnund = []
     id_list = []
     for index, next_str in df.iterrows():
-        # if yyy == 3000:
-        #     break
+        if yyy == 1000:
+            break
         ind = next_str.element_id
         id_list.append(ind)
         list_in_ordnund.append(String_methods.string_in_ordnung(next_str.request))
         yyy += 1
 
-    list_of_hash, split_list_hashes, buckets = Minhash.hashing_and_bucking(list_in_ordnund, id_list)
-
+    list_of_hash, split_list_hashes, buckets = Minhash.hashing_and_bucking(list_in_ordnund, id_list, update)
 
     str_list_of_hash = []
     String_methods.list_to_string(list_of_hash, str_list_of_hash)
@@ -30,38 +29,14 @@ def processing_file(filename):
     str_buckets = []
     String_methods.list_to_string(buckets, str_buckets)
     res = [(id_list[i], str_list_of_hash[i], str_split_list_hashes[i], str_buckets[i]) for i in range(len(id_list))]
-    return res
+    if update:
+        list_of_tuple_id = [(id_item, ) for id_item in id_list]
+        return list_of_tuple_id, res
+    else:
+        return res
 
 
-def processing_file_gpu(filename):
-    df = pd.read_csv(filepath_or_buffer=filename,
-                     names=['element_id', 'request'], encoding='Windows-1251', delimiter=';')
-    yyy = 0
-    list_in_ordnund = []
-    id_list = []
-    for index, next_str in df.iterrows():
-        # if yyy == 3000:
-        #     break
-        ind = next_str.element_id
-        id_list.append(ind)
-        list_in_ordnund.append(String_methods.string_in_ordnung(next_str.request))
-        yyy += 1
-
-    list_of_hash_gpu, split_list_hashes_gpu, buckets = Minhash.hashing_and_bucking_gpu(list_in_ordnund, id_list)
-    list_of_hash = list_of_hash_gpu.tolist()
-    split_list_hashes = split_list_hashes_gpu.tolist()
-
-    str_list_of_hash = []
-    String_methods.list_to_string(list_of_hash, str_list_of_hash)
-    str_split_list_hashes = []
-    String_methods.list_to_string(split_list_hashes, str_split_list_hashes)
-    str_buckets = []
-    String_methods.list_to_string(buckets, str_buckets)
-    res = [(id_list[i], str_list_of_hash[i], str_split_list_hashes[i], str_buckets[i]) for i in range(len(id_list))]
-    return res
-
-
-def download_to_db_file(create=False, gpu=False):
+def download_to_db_file(create=False):
     if create:
         initialisation.create_new_db()
 
@@ -73,11 +48,9 @@ def download_to_db_file(create=False, gpu=False):
 
     connection = conn['connection']
     cursor = conn['cursor']
-    if gpu:
-        data = processing_file_gpu(env.filename)
-    else:
-        data = processing_file(env.filename)
+    data = processing_file(env.filename)
 
+    dao.clear_minhash_table(connection, cursor)
     dao.mass_insert_to_db(connection, cursor, data)
 
 
@@ -90,7 +63,7 @@ def search_similarity(element_id, connenction=None, cursor=None):
         connection = conn['connection']
         cursor = conn['cursor']
 
-    res_req = dao.execute_read_query(connection, cursor, element_id)
+    res_req = dao.execute_read_query(cursor, element_id)
     if len(res_req) == 0:
         return result
 
@@ -102,5 +75,20 @@ def search_similarity(element_id, connenction=None, cursor=None):
         result.append((res[0], Minhash.jaccard_distance(element_hash, res[1])))
 
     return result
+
+
+def update_base():
+    conn = initialisation.connection_db()
+    if conn == None:
+        return None
+
+    connection = conn['connection']
+    cursor = conn['cursor']
+
+    list_of_id, data = processing_file(env.filename_update, True)
+    dao.delete_updating_note(connection, cursor, list_of_id)
+    dao.mass_insert_to_db(connection, cursor, data)
+
+
 
 

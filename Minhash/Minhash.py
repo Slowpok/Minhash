@@ -1,5 +1,7 @@
 from random import shuffle
 import torch
+import env
+import pickle
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
@@ -39,15 +41,18 @@ def list_of_onehot_from_list_of_shingles(list_of_shingles, vocab):
     return list_of_one_hot
 
 
-def create_hash_queue(num: int, count_shuffle: int):
-    assert count_shuffle != 0
+def create_hash_queue(num: int):
+    assert env.count_shuffle != 0
     assert num != 0
     res_queue = []
 
-    for i in range(count_shuffle):
+    for i in range(env.count_shuffle):
         queue = list(range(1, num + 1))
         shuffle(queue)
         res_queue.append(queue)
+
+    with open("hash_queue", "wb") as file:
+        pickle.dump(res_queue, file)
 
     return res_queue
 
@@ -62,34 +67,6 @@ def create_hash(vector: list, hash_func: list):
                 signature.append(idx)
                 break
     return signature
-
-def create_hash_gpu(vector, hash_func):
-    signature_cuda = torch.Tensor([]).to(device).int()
-
-    for func in hash_func:
-        for i in range(1, len(func) + 1):
-            idx = (func == i).nonzero(as_tuple=True)[0].item()
-            signature_val = vector[idx].item()
-            if signature_val == 1:
-                signature_cuda = torch.cat((signature_cuda, torch.tensor([idx]).to(device).int()), dim=0)
-                break
-
-    return torch.unsqueeze(signature_cuda, 0)
-
-
-def list_of_hashes_gpu(list_of_onehot, hash_func):
-    hash_func_cuda = torch.Tensor(hash_func).to(device).int()
-    list_of_onehot_cuda = torch.Tensor(list_of_onehot).to(device).int()
-
-    # list_of_sign_cuda = []
-    list_of_sign_cuda = None
-    for item in list_of_onehot_cuda:
-        chg = create_hash_gpu(item, hash_func_cuda)
-        if list_of_sign_cuda is None:
-            list_of_sign_cuda = chg
-        else:
-            list_of_sign_cuda = torch.cat((list_of_sign_cuda, chg), dim=0)
-    return list_of_sign_cuda
 
 
 def list_of_hashes(list_of_onehot, hash_func):
@@ -118,24 +95,12 @@ def split_vector(signature, b):
     return subvecs
 
 
-def split_list_of_vectors(list_of_onehot, b):
+def split_list_of_vectors(list_of_onehot):
     split_list_one_hot = []
     for i in list_of_onehot:
-        split_list_one_hot.append(split_vector(i, b))
+        split_list_one_hot.append(split_vector(i, env.len_of_buck))
 
     return split_list_one_hot
-
-
-def split_list_of_vectors_gpu(tensor_of_onehot, b):
-    # split_list_one_hot = []
-    # for i in tensor_of_onehot:
-    #     split_list_one_hot.append(split_vector(i, b))
-    shape = tensor_of_onehot.size()
-
-    r = int(shape[1]/b)
-    outy = tensor_of_onehot.view(tensor_of_onehot.shape[0], b, r)
-    return outy
-
 
 
 def catch_coincidences_idx(split_list_one_hot, idx=0):
@@ -162,15 +127,6 @@ def catch_coincidences_element_id(split_list_one_hot, id_list, idx=0):
     return list_id
 
 
-def catch_coincidences_element_id_gpu(split_list_one_hot, id_list, idx=0):
-    list_id_gpu = []
-    req = split_list_one_hot[idx]
-    for i in range(0, len(split_list_one_hot)):
-        for a, b in zip(req, split_list_one_hot[i]):
-            if torch.equal(a, b) and id_list[i] not in list_id_gpu:
-                list_id_gpu.append(id_list[i])
-    return list_id_gpu
-
 
 def strings_comparison(string1: str, string2: str):
     shin_str1 = shingling(string1, 2)
@@ -183,7 +139,7 @@ def strings_comparison(string1: str, string2: str):
     onehot_str1 = onehot(vocab, shin_list1)
     onehot_str2 = onehot(vocab, shin_list2)
 
-    hash_func = create_hash_queue(len(vocab), 400)
+    hash_func = create_hash_queue(len(vocab))
     hash_str1 = create_hash(onehot_str1, hash_func)
     hash_str2 = create_hash(onehot_str2, hash_func)
 
@@ -198,61 +154,50 @@ def collect_all_buckets(splt_hash, id_list):
     return bucket_list
 
 
-def collect_all_buckets_gpu(splt_hash, id_list):
-
-    bucket_list = []
-    for i in range(len(splt_hash)):
-        bucket_list.append(catch_coincidences_element_id_gpu(splt_hash, id_list, i))
-
-    return bucket_list
-
 
 def mass_string_comparison(list_of_strings: list):
     all_shingles, list_of_shingles = shingling_list(list_of_strings, 2)
     vocab = list(set(all_shingles))
 
     list_of_onehot = list_of_onehot_from_list_of_shingles(list_of_shingles, vocab)
-    hash_func = create_hash_queue(len(vocab), 1000)
+    hash_func = create_hash_queue(len(vocab))
     list_of_hash = list_of_hashes(list_of_onehot, hash_func)
 
-    split_list_hashes = split_list_of_vectors(list_of_hash, 100)
+    split_list_hashes = split_list_of_vectors(list_of_hash)
     idxs = catch_coincidences_idx(split_list_hashes)
 
     return ranging_coincidences(list_of_hash, idxs)
 
 
-def hashing_and_bucking(list_of_strings, id_list):
+def hashing_and_bucking(list_of_strings, id_list, update=False):
     all_shingles, list_of_shingles = shingling_list(list_of_strings, 2)
-    vocab = list(set(all_shingles))
+    if not update:
+        vocab = list(set(all_shingles))
+        with open("vocab", "wb") as file:
+            pickle.dump(vocab, file)
+    else:
+        with open("vocab", "rb") as file:
+            vocab = pickle.load(file)
 
     list_of_onehot = list_of_onehot_from_list_of_shingles(list_of_shingles, vocab)
     print("list_of_onehot done")
-    hash_func = create_hash_queue(len(vocab), 1000)
+
+    if not update:
+        hash_func = create_hash_queue(len(vocab))
+    else:
+        with open("hash_queue", "rb") as file:
+            hash_func = pickle.load(file)
+
     print("create_hash_queue done")
     list_of_hash = list_of_hashes(list_of_onehot, hash_func)
     print("list_of_hashes done")
-    split_list_hashes = split_list_of_vectors(list_of_hash, 100)
+    split_list_hashes = split_list_of_vectors(list_of_hash)
     print("split_list_of_vectors done")
     buckets = collect_all_buckets(split_list_hashes, id_list)
     print("buckets done")
     return list_of_hash, split_list_hashes, buckets
 
 
-def hashing_and_bucking_gpu(list_of_strings, id_list):
-    all_shingles, list_of_shingles = shingling_list(list_of_strings, 2)
-    vocab = list(set(all_shingles))
-
-    list_of_onehot = list_of_onehot_from_list_of_shingles(list_of_shingles, vocab)
-    print("list_of_onehot done")
-    hash_func = create_hash_queue(len(vocab), 1000)
-    print("create_hash_queue done")
-    list_of_hash = list_of_hashes_gpu(list_of_onehot, hash_func)
-    print("list_of_hashes done")
-    split_list_hashes = split_list_of_vectors_gpu(list_of_hash, 100)
-    print("split_list_of_vectors done")
-    buckets = collect_all_buckets_gpu(split_list_hashes, id_list)
-    print("buckets done")
-    return list_of_hash, split_list_hashes, buckets
 
 def ranging_coincidences(list_of_hash, idxs):
     req = list_of_hash[0]
@@ -283,7 +228,7 @@ def strings_comparison_with_numbers(string1: str, string2: str, numbers1: str, n
     onehot_num1 = onehot(vocab, shin_list_num1)
     onehot_num2 = onehot(vocab, shin_list_num2)
 
-    hash_func = create_hash_queue(len(vocab), 400)
+    hash_func = create_hash_queue(len(vocab))
 
     hash_str1 = create_hash(onehot_str1, hash_func)
     hash_str2 = create_hash(onehot_str2, hash_func)
