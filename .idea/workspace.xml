@@ -5,35 +5,50 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a0685b5-ad24-41d0-8310-b771c5ab3723" name="Changes" comment="если б мы знали что это такое">
+      <change afterPath="$PROJECT_DIR$/Minhash/global_variable.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Minhash/processing_levels.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Minhash/Ext_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/Ext_func.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Minhash/Minhash.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/Minhash.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Minhash/dao.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/dao.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Minhash/env.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/env.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Minhash/hash_queue" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/hash_queue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Minhash/test_db_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/test_db_func.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Minhash/update_minhash.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/update_minhash.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Minhash/vocab" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/vocab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Slowpok"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Slowpok&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Slowpok/Minhash.git",
-    "accountId": "16971271-9dfb-4ed6-ab53-63f42c0ee0ee"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Slowpok/Minhash.git&quot;,
+    &quot;accountId&quot;: &quot;16971271-9dfb-4ed6-ab53-63f42c0ee0ee&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Minhash/Ext_func.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2nkf4kfknTIF8AgdWMq6vKYwxGP" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -42,10 +57,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Python.test_db_func (1).executor": "Debug",
+    "Python.test_db_func (1).executor": "Run",
     "Python.test_db_func.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master"
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/79118/PycharmProjects/Minhash"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -185,7 +201,23 @@
       <option name="project" value="LOCAL" />
       <updated>1730112200245</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="если б мы знали что это такое">
+      <option name="closed" value="true" />
+      <created>1730123021192</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1730123021192</updated>
+    </task>
+    <task id="LOCAL-00010" summary="если б мы знали что это такое">
+      <option name="closed" value="true" />
+      <created>1730123044151</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1730123044151</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -211,11 +243,82 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Minhash/dao.py</url>
+          <line>17</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Minhash/Ext_func.py</url>
-          <line>76</line>
-          <option name="timeStamp" value="49" />
+          <line>186</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Minhash/Ext_func.py</url>
+          <line>122</line>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Minhash/Ext_func.py</url>
+          <line>168</line>
+          <option name="timeStamp" value="99" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
+          <line>261</line>
+          <option name="timeStamp" value="102" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
+          <line>273</line>
+          <option name="timeStamp" value="103" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
+          <line>275</line>
+          <option name="timeStamp" value="104" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
+          <line>277</line>
+          <option name="timeStamp" value="105" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
+          <line>281</line>
+          <option name="timeStamp" value="106" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
+          <line>125</line>
+          <option name="timeStamp" value="107" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
+          <line>149</line>
+          <option name="timeStamp" value="111" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
+          <line>285</line>
+          <option name="timeStamp" value="112" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="processing_levels.levels" language="Python" />
+        <watch expression="processing_levels.steps" language="Python" />
+        <watch expression="processing_levels.levels['list_of_hashes']" language="Python" />
+        <watch expression="global_variable.id_list" language="Python" />
+        <watch expression="global_variable.list_in_ordnund" language="Python" />
+        <watch expression="global_variable.shingle_list" language="Python" />
+        <watch expression="global_variable.all_shingles" language="Python" />
+        <watch expression="global_variable.list_of_onehot" language="Python" />
+        <watch expression="global_variable.vocab" language="Python" />
+        <watch expression="global_variable.hash_func" language="Python" />
+        <watch expression="global_variable.list_of_hash" language="Python" />
+        <watch expression="global_variable.split_list_hashes" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

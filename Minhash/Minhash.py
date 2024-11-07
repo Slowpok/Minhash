@@ -3,6 +3,11 @@ import torch
 import env
 import dao
 import pickle
+from tqdm import tqdm
+import global_variable
+import processing_levels
+import Ext_func
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
@@ -19,43 +24,76 @@ def shingling(text: str, k: int):
     return set(shingle_set)
 
 
-def shingling_list(list_of_text: list, k: int):
-    shingle_list = []
-    all_shingle_list = []
-    for value in list_of_text:
-        list_shin = shingling(value, k)
-        shingle_list.append(list(list_shin))
-        all_shingle_list.extend(list_shin)
+def shingling_list(k: int):
+    # shingle_list = []
+    # all_shingle_list = []
+    list_of_text = []
+    if not global_variable.reanimate:
+        global_variable.shingle_list = []
+        global_variable.all_shingles = []
+        processing_levels.levels["shingling_list"] = 0
+        list_of_text = global_variable.list_in_ordnund
 
-    return all_shingle_list, shingle_list
+    elif not processing_levels.steps['shingling_list'] and global_variable.reanimate:
+        lev = processing_levels.levels["shingling_list"]
+        list_of_text = global_variable.list_in_ordnund[lev::]
+
+    for value in tqdm(list_of_text):
+        list_shin = shingling(value, k)
+        global_variable.shingle_list.append(list(list_shin))
+        global_variable.all_shingles.extend(list_shin)
+        processing_levels.levels["shingling_list"] += 1
+
+    processing_levels.steps['shingling_list'] = True
+
+    # return all_shingle_list, shingle_list
 
 
 def onehot(vocab: list, shingle_text: list):
     return [1 if x in shingle_text else 0 for x in vocab]
 
 
-def list_of_onehot_from_list_of_shingles(list_of_shingles, vocab):
-    list_of_one_hot = []
-    for value in list_of_shingles:
-        list_of_one_hot.append([1 if x in value else 0 for x in vocab])
+def list_of_onehot_from_list_of_shingles():
+    # list_of_one_hot = []
+    shingle_list = []
+    if not global_variable.reanimate:
+        global_variable.list_of_onehot = []
+        shingle_list = global_variable.shingle_list
+        processing_levels.levels['list_of_onehot'] = 0
+    elif not processing_levels.steps['list_of_onehot'] and global_variable.reanimate:
+        lev = processing_levels.levels['list_of_onehot']
+        shingle_list = global_variable.shingle_list[lev::]
 
-    return list_of_one_hot
+    for value in tqdm(shingle_list):
+        global_variable.list_of_onehot.append([1 if x in value else 0 for x in global_variable.vocab])
+        processing_levels.levels['list_of_onehot'] += 1
+
+    processing_levels.steps['list_of_onehot'] = True
+    # return list_of_one_hot
 
 
 def create_hash_queue(num: int):
     assert env.count_shuffle != 0
     assert num != 0
-    res_queue = []
+    c_shuffle = 0
 
-    for i in range(env.count_shuffle):
+    if not global_variable.reanimate:
+        global_variable.hash_func = []
+        c_shuffle = env.count_shuffle
+        processing_levels.levels['create_hash_queue'] = 0
+    elif not processing_levels.steps['create_hash_queue'] and global_variable.reanimate:
+        c_shuffle = env.count_shuffle - processing_levels.levels["create_hash_queue"]
+
+    for i in range(c_shuffle):
         queue = list(range(1, num + 1))
         shuffle(queue)
-        res_queue.append(queue)
+        global_variable.hash_func.append(queue)
+        processing_levels.levels["create_hash_queue"] += 1
 
     with open("hash_queue", "wb") as file:
-        pickle.dump(res_queue, file)
+        pickle.dump(global_variable.hash_func, file)
 
-    return res_queue
+    processing_levels.steps['create_hash_queue'] = True
 
 
 def create_hash(vector: list, hash_func: list):
@@ -70,12 +108,23 @@ def create_hash(vector: list, hash_func: list):
     return signature
 
 
-def list_of_hashes(list_of_onehot, hash_func):
-    list_of_sign = []
-    for item in list_of_onehot:
-        list_of_sign.append(create_hash(item, hash_func))
+def list_of_hashes():
+    # list_of_sign = []
+    list_of_onehot = []
+    if not global_variable.reanimate:
+        global_variable.list_of_hash = []
+        processing_levels.levels['list_of_hashes'] = 0
+        list_of_onehot = global_variable.list_of_onehot
+    elif not processing_levels.steps['list_of_hashes'] and global_variable.reanimate:
+        lev = processing_levels.levels['list_of_hashes']
+        list_of_onehot = global_variable.list_of_onehot[lev::]
 
-    return list_of_sign
+    for item in tqdm(list_of_onehot):
+        global_variable.list_of_hash.append(create_hash(item, global_variable.hash_func))
+        processing_levels.levels['list_of_hashes'] += 1
+
+    processing_levels.steps['list_of_hashes'] = True
+    # return list_of_sign
 
 
 
@@ -96,12 +145,23 @@ def split_vector(signature, b):
     return subvecs
 
 
-def split_list_of_vectors(list_of_onehot):
-    split_list_one_hot = []
-    for i in list_of_onehot:
-        split_list_one_hot.append(split_vector(i, env.len_of_buck))
+def split_list_of_vectors():
+    # split_list_one_hot = []
+    list_of_hash = []
+    if not global_variable.reanimate:
+        global_variable.split_list_hashes = []
+        processing_levels.levels['split_list_of_hashes'] = 0
+        list_of_hash = global_variable.list_of_hash
+    elif not processing_levels.steps['split_list_of_vectors'] and global_variable.reanimate:
+        lev = processing_levels.levels['split_list_of_hashes']
+        list_of_hash = global_variable.list_of_hash[lev::]
 
-    return split_list_one_hot
+    for i in tqdm(list_of_hash):
+        global_variable.split_list_hashes.append(split_vector(i, env.len_of_buck))
+        processing_levels.levels['split_list_of_hashes'] += 1
+
+    processing_levels.steps['split_list_of_vectors'] = True
+    # return split_list_one_hot
 
 
 def catch_coincidences_idx(split_list_one_hot, idx=0):
@@ -128,7 +188,6 @@ def catch_coincidences_element_id(split_list_one_hot, id_list, idx=0):
     return list_id
 
 
-
 def strings_comparison(string1: str, string2: str):
     shin_str1 = shingling(string1, 2)
     shin_str2 = shingling(string2, 2)
@@ -147,14 +206,22 @@ def strings_comparison(string1: str, string2: str):
     print(jaccard_distance(hash_str1, hash_str2))
 
 
-def collect_all_buckets(splt_hash, id_list):
+def collect_all_buckets():
+    # bucket_list = []
+    len_split_list_hashes = 0
+    if not global_variable.reanimate:
+        global_variable.buckets = []
+        processing_levels.levels['collect_all_buckets'] = 0
+        len_split_list_hashes = len(global_variable.split_list_hashes)
+    elif not processing_levels.steps['collect_all_buckets'] and global_variable.reanimate:
+        lev = processing_levels.levels['collect_all_buckets']
+        len_split_list_hashes = len(global_variable.split_list_hashes[lev::])
 
-    bucket_list = []
-    for i in range(len(splt_hash)):
-        bucket_list.append(catch_coincidences_element_id(splt_hash, id_list, i))
-
-    return bucket_list
-
+    for i in tqdm(range(len_split_list_hashes)):
+        global_variable.buckets.append(catch_coincidences_element_id(global_variable.split_list_hashes, global_variable.id_list, i))
+        processing_levels.levels['collect_all_buckets'] += 1
+        processing_levels.steps['collect_all_buckets'] = True
+    # return bucket_list
 
 
 def mass_string_comparison(list_of_strings: list):
@@ -179,45 +246,74 @@ def get_past_data(cursor):
     return all_id, all_hash, all_split_hash
 
 
-def hashing_and_bucking(list_of_strings, id_list, update=False, cursor=None):
-    all_shingles, list_of_shingles = shingling_list(list_of_strings, 2)
+def hashing_and_bucking(update=False, cursor=None):
+
+    print("shingling in process")
+    # all_shingles, list_of_shingles = shingling_list(list_of_strings, 2)
+    if not global_variable.reanimate or (not processing_levels.steps['shingling_list'] and global_variable.reanimate):
+        shingling_list(2)
+        global_variable.reanimate = False
+
+    print("shingling done")
+
+    print("create_hash_queue in process")
+
     if not update:
-        vocab = list(set(all_shingles))
-        hash_func = create_hash_queue(len(vocab))
-        with open("vocab", "wb") as file:
-            pickle.dump(vocab, file)
+        global_variable.vocab = list(set(global_variable.all_shingles))
+        if not global_variable.reanimate or (not processing_levels.steps['create_hash_queue'] and global_variable.reanimate):
+            create_hash_queue(len(global_variable.vocab))
+            global_variable.reanimate = False
+            with open("vocab", "wb") as file:
+                pickle.dump(global_variable.vocab, file)
     else:
         with open("vocab", "rb") as file:
-            vocab = pickle.load(file)
+            global_variable.vocab = pickle.load(file)
         with open("hash_queue", "rb") as file:
-            hash_func = pickle.load(file)
-
-    list_of_onehot = list_of_onehot_from_list_of_shingles(list_of_shingles, vocab)
-    print("list_of_onehot done")
-
-    # if not update:
-    #     hash_func = create_hash_queue(len(vocab))
-    # else:
-    #     with open("hash_queue", "rb") as file:
-    #         hash_func = pickle.load(file)
+            global_variable.hash_func = pickle.load(file)
 
     print("create_hash_queue done")
-    list_of_hash = list_of_hashes(list_of_onehot, hash_func)
+
+    print("list of one_hot in process")
+
+    if not global_variable.reanimate or (not processing_levels.steps['list_of_onehot'] and global_variable.reanimate):
+        list_of_onehot_from_list_of_shingles()
+        global_variable.reanimate = False
+
+    print("list_of_onehot done")
+
+    print("list_of_hashes in process")
+
+    if not global_variable.reanimate or (not processing_levels.steps['list_of_hashes'] and global_variable.reanimate):
+        list_of_hashes()
+        global_variable.reanimate = False
+
     print("list_of_hashes done")
-    split_list_hashes = split_list_of_vectors(list_of_hash)
+    print("split_list_of_vectors in process")
+
+    if not global_variable.reanimate or (not processing_levels.steps['split_list_of_vectors']
+                                         and global_variable.reanimate):
+        split_list_of_vectors()
+        global_variable.reanimate = False
+
     print("split_list_of_vectors done")
+
     if update:
+        print("prepare updating data")
         past_id_list, past_list_hashes, past_split_list_hashes = get_past_data(cursor)
-        split_list_hashes.extend(past_split_list_hashes)
-        id_list.extend(past_id_list)
-        list_of_hash.extend(past_list_hashes)
+        global_variable.split_list_hashes.extend(past_split_list_hashes)
+        global_variable.id_list.extend(past_id_list)
+        global_variable.list_of_hash.extend(past_list_hashes)
+        print("prepare done")
 
-    buckets = collect_all_buckets(split_list_hashes, id_list)
+    print("collect buckets in process")
+    if not global_variable.reanimate or (not processing_levels.steps['collect_all_buckets']
+                                         and global_variable.reanimate):
+        collect_all_buckets()
+        global_variable.reanimate = False
+        print("buckets done")
 
-    print("buckets done")
 
-    return id_list, list_of_hash, split_list_hashes, buckets
-
+    # return global_variable.id_list, list_of_hash, split_list_hashes, buckets
 
 
 def ranging_coincidences(list_of_hash, idxs):
@@ -249,12 +345,12 @@ def strings_comparison_with_numbers(string1: str, string2: str, numbers1: str, n
     onehot_num1 = onehot(vocab, shin_list_num1)
     onehot_num2 = onehot(vocab, shin_list_num2)
 
-    hash_func = create_hash_queue(len(vocab))
+    create_hash_queue(len(vocab))
 
-    hash_str1 = create_hash(onehot_str1, hash_func)
-    hash_str2 = create_hash(onehot_str2, hash_func)
-    hash_num1 = create_hash(onehot_num1, hash_func)
-    hash_num2 = create_hash(onehot_num2, hash_func)
+    hash_str1 = create_hash(onehot_str1, global_variable.hash_func)
+    hash_str2 = create_hash(onehot_str2, global_variable.hash_func)
+    hash_num1 = create_hash(onehot_num1, global_variable.hash_func)
+    hash_num2 = create_hash(onehot_num2, global_variable.hash_func)
 
     jac_str = jaccard_distance(hash_str1, hash_str2)
     jac_num = jaccard_distance(hash_num1, hash_num2)
