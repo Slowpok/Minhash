@@ -124,7 +124,7 @@ def processing_file(filename, update=False, connection=None, cursor=None):
     with open("hash", "wb") as file:
         pickle.dump(new_hash, file)
 
-    if os.listdir("tmp"):
+    if os.path.exists("tmp") and os.listdir("tmp"):
         if (os.path.exists("tmp/processing_levels") and
                 os.path.exists("tmp/global_variable") and os.path.exists("tmp/env_variable")):
 

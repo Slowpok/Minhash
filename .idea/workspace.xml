@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="4a0685b5-ad24-41d0-8310-b771c5ab3723" name="Changes" comment="если б мы знали что это такое">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Minhash/Minhash.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/Minhash.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Minhash/hash" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/hash" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Minhash/hash_queue" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/hash_queue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Minhash/test_db_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/test_db_func.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Minhash/vocab" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/vocab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -216,7 +221,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730995468229</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="если б мы знали что это такое">
+      <option name="closed" value="true" />
+      <created>1731052918487</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1731052918487</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -248,53 +261,38 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Minhash/Ext_func.py</url>
-          <line>186</line>
+          <line>190</line>
           <option name="timeStamp" value="81" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Minhash/Ext_func.py</url>
-          <line>122</line>
+          <line>126</line>
           <option name="timeStamp" value="86" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
-          <line>261</line>
-          <option name="timeStamp" value="102" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
-          <line>273</line>
-          <option name="timeStamp" value="103" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
-          <line>275</line>
-          <option name="timeStamp" value="104" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
-          <line>277</line>
-          <option name="timeStamp" value="105" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
-          <line>281</line>
+          <line>295</line>
           <option name="timeStamp" value="106" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
-          <line>125</line>
-          <option name="timeStamp" value="107" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
-          <line>149</line>
+          <line>159</line>
           <option name="timeStamp" value="111" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
-          <line>285</line>
+          <line>299</line>
           <option name="timeStamp" value="112" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
+          <line>275</line>
+          <option name="timeStamp" value="119" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Minhash/Ext_func.py</url>
+          <line>78</line>
+          <option name="timeStamp" value="120" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

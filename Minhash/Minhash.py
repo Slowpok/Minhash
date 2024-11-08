@@ -7,6 +7,9 @@ from tqdm import tqdm
 import global_variable
 import processing_levels
 import Ext_func
+from progress.bar import IncrementalBar
+from alive_progress import alive_bar
+
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -38,11 +41,14 @@ def shingling_list(k: int):
         lev = processing_levels.levels["shingling_list"]
         list_of_text = global_variable.list_in_ordnund[lev::]
 
-    for value in tqdm(list_of_text):
-        list_shin = shingling(value, k)
-        global_variable.shingle_list.append(list(list_shin))
-        global_variable.all_shingles.extend(list_shin)
-        processing_levels.levels["shingling_list"] += 1
+    with alive_bar(len(list_of_text), force_tty=True) as bar:
+        for value in list_of_text:
+            bar()
+            list_shin = shingling(value, k)
+            global_variable.shingle_list.append(list(list_shin))
+            global_variable.all_shingles.extend(list_shin)
+            processing_levels.levels["shingling_list"] += 1
+
 
     processing_levels.steps['shingling_list'] = True
 
@@ -64,9 +70,11 @@ def list_of_onehot_from_list_of_shingles():
         lev = processing_levels.levels['list_of_onehot']
         shingle_list = global_variable.shingle_list[lev::]
 
-    for value in tqdm(shingle_list):
-        global_variable.list_of_onehot.append([1 if x in value else 0 for x in global_variable.vocab])
-        processing_levels.levels['list_of_onehot'] += 1
+    with alive_bar(len(shingle_list), force_tty=True) as bar:
+        for value in shingle_list:
+            bar()
+            global_variable.list_of_onehot.append([1 if x in value else 0 for x in global_variable.vocab])
+            processing_levels.levels['list_of_onehot'] += 1
 
     processing_levels.steps['list_of_onehot'] = True
     # return list_of_one_hot
@@ -119,9 +127,11 @@ def list_of_hashes():
         lev = processing_levels.levels['list_of_hashes']
         list_of_onehot = global_variable.list_of_onehot[lev::]
 
-    for item in tqdm(list_of_onehot):
-        global_variable.list_of_hash.append(create_hash(item, global_variable.hash_func))
-        processing_levels.levels['list_of_hashes'] += 1
+    with alive_bar(len(list_of_onehot), force_tty=True) as bar:
+        for item in list_of_onehot:
+            bar()
+            global_variable.list_of_hash.append(create_hash(item, global_variable.hash_func))
+            processing_levels.levels['list_of_hashes'] += 1
 
     processing_levels.steps['list_of_hashes'] = True
     # return list_of_sign
@@ -156,9 +166,11 @@ def split_list_of_vectors():
         lev = processing_levels.levels['split_list_of_hashes']
         list_of_hash = global_variable.list_of_hash[lev::]
 
-    for i in tqdm(list_of_hash):
-        global_variable.split_list_hashes.append(split_vector(i, env.len_of_buck))
-        processing_levels.levels['split_list_of_hashes'] += 1
+    with alive_bar(len(list_of_hash), force_tty=True) as bar:
+        for i in list_of_hash:
+            bar()
+            global_variable.split_list_hashes.append(split_vector(i, env.len_of_buck))
+            processing_levels.levels['split_list_of_hashes'] += 1
 
     processing_levels.steps['split_list_of_vectors'] = True
     # return split_list_one_hot
@@ -217,10 +229,12 @@ def collect_all_buckets():
         lev = processing_levels.levels['collect_all_buckets']
         len_split_list_hashes = len(global_variable.split_list_hashes[lev::])
 
-    for i in tqdm(range(len_split_list_hashes)):
-        global_variable.buckets.append(catch_coincidences_element_id(global_variable.split_list_hashes, global_variable.id_list, i))
-        processing_levels.levels['collect_all_buckets'] += 1
-        processing_levels.steps['collect_all_buckets'] = True
+    with alive_bar(len_split_list_hashes, force_tty=True) as bar:
+        for i in range(len_split_list_hashes):
+            bar()
+            global_variable.buckets.append(catch_coincidences_element_id(global_variable.split_list_hashes, global_variable.id_list, i))
+            processing_levels.levels['collect_all_buckets'] += 1
+            processing_levels.steps['collect_all_buckets'] = True
     # return bucket_list
 
 
@@ -248,15 +262,15 @@ def get_past_data(cursor):
 
 def hashing_and_bucking(update=False, cursor=None):
 
-    print("shingling in process")
+    print("shingling in process\n")
     # all_shingles, list_of_shingles = shingling_list(list_of_strings, 2)
     if not global_variable.reanimate or (not processing_levels.steps['shingling_list'] and global_variable.reanimate):
         shingling_list(2)
         global_variable.reanimate = False
 
-    print("shingling done")
+    print("shingling done\n")
 
-    print("create_hash_queue in process")
+    print("create_hash_queue in process\n")
 
     if not update:
         global_variable.vocab = list(set(global_variable.all_shingles))
@@ -271,46 +285,46 @@ def hashing_and_bucking(update=False, cursor=None):
         with open("hash_queue", "rb") as file:
             global_variable.hash_func = pickle.load(file)
 
-    print("create_hash_queue done")
+    print("create_hash_queue done\n")
 
-    print("list of one_hot in process")
+    print("list of one_hot in process\n")
 
     if not global_variable.reanimate or (not processing_levels.steps['list_of_onehot'] and global_variable.reanimate):
         list_of_onehot_from_list_of_shingles()
         global_variable.reanimate = False
 
-    print("list_of_onehot done")
+    print("list_of_onehot done\n")
 
-    print("list_of_hashes in process")
+    print("list_of_hashes in process\n")
 
     if not global_variable.reanimate or (not processing_levels.steps['list_of_hashes'] and global_variable.reanimate):
         list_of_hashes()
         global_variable.reanimate = False
 
-    print("list_of_hashes done")
-    print("split_list_of_vectors in process")
+    print("list_of_hashes done\n")
+    print("split_list_of_vectors in process\n")
 
     if not global_variable.reanimate or (not processing_levels.steps['split_list_of_vectors']
                                          and global_variable.reanimate):
         split_list_of_vectors()
         global_variable.reanimate = False
 
-    print("split_list_of_vectors done")
+    print("split_list_of_vectors done\n")
 
     if update:
-        print("prepare updating data")
+        print("prepare updating data\n")
         past_id_list, past_list_hashes, past_split_list_hashes = get_past_data(cursor)
         global_variable.split_list_hashes.extend(past_split_list_hashes)
         global_variable.id_list.extend(past_id_list)
         global_variable.list_of_hash.extend(past_list_hashes)
-        print("prepare done")
+        print("prepare done\n")
 
-    print("collect buckets in process")
+    print("collect buckets in process\n")
     if not global_variable.reanimate or (not processing_levels.steps['collect_all_buckets']
                                          and global_variable.reanimate):
         collect_all_buckets()
         global_variable.reanimate = False
-        print("buckets done")
+        print("buckets done\n")
 
 
     # return global_variable.id_list, list_of_hash, split_list_hashes, buckets
