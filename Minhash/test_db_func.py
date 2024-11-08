@@ -1,7 +1,4 @@
 import Ext_func
-import torch
-import time
-import tqdm
 
 
 Ext_func.download_to_db_file(False)
