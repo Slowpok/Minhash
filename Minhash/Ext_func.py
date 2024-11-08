@@ -75,6 +75,10 @@ def update_env_variable():
 
 
 def save_temp_data():
+
+    if not os.path.exists("tmp"):
+        os.makedirs("tmp")
+
     delete_files_in_folder("tmp")
     with open("tmp/env_variable", "wb") as file:
         env_dict = dict()

@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a0685b5-ad24-41d0-8310-b771c5ab3723" name="Changes" comment="если б мы знали что это такое">
-      <change afterPath="$PROJECT_DIR$/Minhash/global_variable.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Minhash/processing_levels.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Minhash/Ext_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/Ext_func.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Minhash/Minhash.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/Minhash.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Minhash/env.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Minhash/hash_queue" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/hash_queue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Minhash/test_db_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/test_db_func.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Minhash/update_minhash.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/update_minhash.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Minhash/vocab" beforeDir="false" afterPath="$PROJECT_DIR$/Minhash/vocab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +48,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Python.test_db_func (1).executor": "Run",
+    "Python.test_db_func (1).executor": "Debug",
     "Python.test_db_func.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
@@ -217,7 +208,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730123044151</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="если б мы знали что это такое">
+      <option name="closed" value="true" />
+      <created>1730995468229</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1730995468229</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -256,11 +255,6 @@
           <url>file://$PROJECT_DIR$/Minhash/Ext_func.py</url>
           <line>122</line>
           <option name="timeStamp" value="86" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Minhash/Ext_func.py</url>
-          <line>168</line>
-          <option name="timeStamp" value="99" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Minhash/Minhash.py</url>
