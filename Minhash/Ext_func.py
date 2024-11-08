@@ -209,7 +209,9 @@ def download_to_db_file(create=False):
 
         dao.clear_minhash_table(connection, cursor)
         dao.mass_insert_to_db(connection, cursor, data)
-    except BaseException or KeyboardInterrupt:
+    # except BaseException or KeyboardInterrupt:
+
+    except:
         print("W A S T E D")
         save_temp_data()
 
@@ -248,7 +250,9 @@ def update_base():
         data = processing_file(env.filename_update, True, connection, cursor)
         # dao.clear_minhash_table(connection, cursor)
         dao.mass_insert_to_db(connection, cursor, data)
-    except BaseException or KeyboardInterrupt:
+
+    except:
+    # except BaseException or KeyboardInterrupt:
         print("W A S T E D")
         save_temp_data()
 
